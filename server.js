@@ -19,11 +19,16 @@ app.get('/',function(request, response){
     }
     if (typeof year == 'undefined'){
         errorText += 'The parameter year was not given.'
+    }else{
+        if ((new Date()).getFullYear() < year){
+            errorText += 'The given year is in the future or not a number.'
+        }
     }
+
 
     if (errorText != ''){
         response.send(JSON.stringify({'Error':'You should provide 3 parameters: vendor, product year.'
-              +errorText+'Usage example: url/?vendor=mircrosoft&product=office&year=2017'},null,10))
+              +errorText+'Usage example: url/?vendor=microsoft&product=office&year=2017'},null,10))
 
     }else {
 
@@ -94,7 +99,7 @@ app.get('/',function(request, response){
 
 
 //start a server on port 80 and log its start to our console
-var server = app.listen(80, function () {
+var server = app.listen(8080, function () {
 
   var port = server.address().port;
   console.log('Example app listening on port ', port);
